@@ -19,11 +19,12 @@ else
     CFLAGS="$CFLAGS -Wundef"
 fi
 
-AC_CHECK_LIB(oshmem, opal_progress, [CFLAGS="$CFLAGS -DHAVE_OPAL_PROGRESS"],
+#AC_CHECK_LIB(oshmem, opal_progress, [CFLAGS="$CFLAGS -DHAVE_OPAL_PROGRESS"],
+AC_CHECK_FUNC(opal_progress, [CFLAGS="$CFLAGS -DHAVE_OPAL_PROGRESS"],
 			     [AC_MSG_WARN([opal_progress() not found. Some OpenMPI/SHMEM versions require it in data suite.])])
 
 dnl Check oshmem version
-AC_CHECK_LIB([oshmem], [shmem_getmem_nbi],
+AC_CHECK_FUNCS([shmem_getmem_nbi],
     [AM_CONDITIONAL([HAVE_NBI],[true])
      CFLAGS="$CFLAGS -DHAVE_NBI"
     ],
@@ -35,6 +36,13 @@ AC_CHECK_DECLS([shmem_alltoall32, shmem_alltoall64],
      CFLAGS="$CFLAGS -DHAVE_ALLTOALL"
     ],
     [AM_CONDITIONAL([HAVE_ALLTOALL],[false])], [#include "shmem.h"])
+
+dnl Check for MPI lib
+AC_CHECK_LIB([mpi], [MPI_Init],
+    [AM_CONDITIONAL([HAVE_MPI],[true])
+     CFLAGS="$CFLAGS -DHAVE_MPI"
+    ],
+    [AM_CONDITIONAL([HAVE_MPI],[false])])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
