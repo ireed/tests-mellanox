@@ -28,7 +28,7 @@ static int test_item5(void);
 static int test_item6(void);
 
 
-#define COUNT_VALUE		100000
+#define COUNT_VALUE		10000
 #define BUFFER_COUNT	0x1000
 #define SHMEM_SYNC_INVALID 	(-77)
 

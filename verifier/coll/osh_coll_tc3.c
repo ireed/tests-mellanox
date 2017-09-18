@@ -54,9 +54,9 @@ int osh_coll_tc3(const TE_NODE *node, int argc, const char *argv[])
 
   pSync = NULL;
 
-  pSync = shmalloc(sizeof(long) *_SHMEM_COLLECT_SYNC_SIZE);
+  pSync = shmalloc(sizeof(long) *_SHMEM_BCAST_SYNC_SIZE);
 
-  for (ii=0; ii < _SHMEM_COLLECT_SYNC_SIZE; ii++) {
+  for (ii=0; ii < _SHMEM_BCAST_SYNC_SIZE; ii++) {
     pSync[ii] = _SHMEM_SYNC_VALUE;
   }
 
