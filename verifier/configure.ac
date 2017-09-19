@@ -19,9 +19,11 @@ else
     CFLAGS="$CFLAGS -Wundef"
 fi
 
-#AC_CHECK_LIB(oshmem, opal_progress, [CFLAGS="$CFLAGS -DHAVE_OPAL_PROGRESS"],
-AC_CHECK_FUNC(opal_progress, [CFLAGS="$CFLAGS -DHAVE_OPAL_PROGRESS"],
-			     [AC_MSG_WARN([opal_progress() not found. Some OpenMPI/SHMEM versions require it in data suite.])])
+AC_CHECK_LIB(open-pal, opal_progress, [
+                 CFLAGS="$CFLAGS -DHAVE_OPAL_PROGRESS"
+                 LDFLAGS="-lopen-pal $LDFLAGS"
+                 ],
+              [AC_MSG_WARN([opal_progress() not found. Some OpenMPI/SHMEM versions require it in data suite.])])
 
 dnl Check oshmem version
 AC_CHECK_FUNCS([shmem_getmem_nbi],
